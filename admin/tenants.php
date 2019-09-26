@@ -151,24 +151,24 @@ $username = "root";
 $password = ""; 
 $database = "hostel"; 
 $mysqli = new mysqli("localhost", $username, $password, $database); 
-$query = "SELECT * FROM users";
+$query = "SELECT * FROM member";
  
  
 echo '<table border="0" class="table" cellspacing="2" cellpadding="2"> 
       <tr> <td> <font face="Arial">Serial Number</font> </td>
-      <td> <font face="Arial">Full Name</font> </td>
-          <td> <font face="Arial">Phone Number</font> </td> 
-          <td> <font face="Arial">Email Address</font> </td>
-          <td> <font face="Arial">ID Number</font> </td>  
+      <td> <font face="Arial">Email Address</font> </td>
+          <td> <font face="Arial">Full Name</font> </td> 
+          <td> <font face="Arial">Date Created</font> </td>
+          
       </tr>';
  
 if ($result = $mysqli->query($query)) {
     while ($row = $result->fetch_assoc()) {
-        $field1name = $row["id"];
-        $field2name = $row["name"];
-        $field3name = $row["phone_no"];
-        $field4name = $row["email"];
-        $field5name = $row["id_no"];
+        $field1name = $row["user_id"];
+        $field2name = $row["username"];
+        $field3name = $row["full_name"];
+        $field4name = $row["created_date"];
+        
       
  
         echo '<tr> 
@@ -176,7 +176,7 @@ if ($result = $mysqli->query($query)) {
                   <td>'.$field2name.'</td> 
                   <td>'.$field3name.'</td> 
                   <td>'.$field4name.'</td> 
-                  <td>'.$field5name.'</td> 
+                 
                    
               </tr>';
     }
