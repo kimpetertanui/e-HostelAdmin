@@ -117,6 +117,11 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Notice</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="view_notice.php">
+          <i class="fas fa-eye"></i>
+          <span>View Notices</span></a>
+      </li>
     </ul>
 
     <div id="content-wrapper">
