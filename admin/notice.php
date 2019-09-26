@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>e-Hostel Admin - Dashboard</title>
+  <title>e-Hostel Admin - Dashboard ::Notice</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -90,7 +90,7 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="home.php">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -102,8 +102,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
-          <a class="dropdown-item" href="add_hostel.html">Add Hostel</a>
-          <a class="dropdown-item" href="home.php">View Hostels </a>
+          <a class="dropdown-item" href="add_hostel.html"><i class="fas fa-plus"></i>Add Hostel
+           
+          </a>
+          <a class="dropdown-item" href="home.php"><i class="fas fa-eye"></i>View Hostels </a>
           
         </div>
       </li>
@@ -112,7 +114,7 @@
           <i class="fa fa-user" aria-hidden="true"></i>
           <span>Tenants</span></a>
       </li>
-     <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link" href="notice.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Notice</span></a>
@@ -126,9 +128,9 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="home.php">Dashboard</a>
+            <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Tenants</li>
+          <li class="breadcrumb-item active">Notice</li>
         </ol>
 
        
@@ -136,48 +138,48 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            All Tenants</div>
+            Send Notice</div>
           <div class="card-body">
             <div class="table-responsive">
             
 
-              <?php 
-$username = "root"; 
-$password = ""; 
-$database = "hostel"; 
-$mysqli = new mysqli("localhost", $username, $password, $database); 
-$query = "SELECT * FROM users";
- 
- 
-echo '<table border="0" class="table" cellspacing="2" cellpadding="2"> 
-      <tr> <td> <font face="Arial">Serial Number</font> </td>
-      <td> <font face="Arial">Full Name</font> </td>
-          <td> <font face="Arial">Phone Number</font> </td> 
-          <td> <font face="Arial">Email Address</font> </td>
-          <td> <font face="Arial">ID Number</font> </td>  
-      </tr>';
- 
-if ($result = $mysqli->query($query)) {
-    while ($row = $result->fetch_assoc()) {
-        $field1name = $row["id"];
-        $field2name = $row["name"];
-        $field3name = $row["phone_no"];
-        $field4name = $row["email"];
-        $field5name = $row["id_no"];
-      
- 
-        echo '<tr> 
-                  <td>'.$field1name.'</td> 
-                  <td>'.$field2name.'</td> 
-                  <td>'.$field3name.'</td> 
-                  <td>'.$field4name.'</td> 
-                  <td>'.$field5name.'</td> 
-                   
-              </tr>';
+               <?php
+    $txtEvolucion = '';
+    if(isset($_POST['Insert']) && isset($_POST["txtEvolucion"]))
+    {
+        $txtEvolucion = $_POST["txtEvolucion"];
+        require_once('DatabaseConfig.php');
+        $con = mysqli_connect($HostName,$HostUser,$HostPass,$DatabaseName);
+        echo "<br>". "txtEvolucion={"     . $txtEvolucion    ."}";
+        $query = "INSERT INTO notice (clmTextArea) VALUES (?)";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $txtEvolucion);
+        mysqli_stmt_execute($stmt);
+        $affected_rows = mysqli_stmt_affected_rows($stmt);
+        echo $affected_rows;
+        if($affected_rows == 1)
+        {
+            $txtEvolucion = '';
+            echo "Inserted";
+            mysqli_stmt_close($stmt);
+        }
+        else
+        {
+            ini_set('display_errors', 'On');
+            mysqli_stmt_close($stmt);
+        }
     }
-    $result->free();
-} 
 ?>
+        <div id="divAgenda"> 
+        <form id="contact" action="" method="post">
+            <fieldset>
+                <textarea id="txtEvolucion"  name="txtEvolucion" tabindex="20" cols="148" rows="5" 
+                          value="<?= $txtEvolucion ?> " required
+                ><?= $txtEvolucion ?></textarea><br><br>
+
+                <button name="Insert" type="submit" id="contact-submit" data-submit="...Sending">Send</button><br>
+            </fieldset>
+        </form>
     
             </div>
           </div>
@@ -243,3 +245,4 @@ if ($result = $mysqli->query($query)) {
 </body>
 
 </html>
+

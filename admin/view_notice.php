@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>e-Hostel Admin - Dashboard</title>
+  <title>e-Hostel Admin - Dashboard ::Notice</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -90,7 +90,7 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="home.php">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -102,8 +102,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
-          <a class="dropdown-item" href="add_hostel.html">Add Hostel</a>
-          <a class="dropdown-item" href="home.php">View Hostels </a>
+          <a class="dropdown-item" href="add_hostel.html"><i class="fas fa-plus"></i>Add Hostel
+           
+          </a>
+          <a class="dropdown-item" href="home.php"><i class="fas fa-eye"></i>View Hostels </a>
           
         </div>
       </li>
@@ -126,9 +128,9 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="home.php">Dashboard</a>
+            <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Tenants</li>
+          <li class="breadcrumb-item active">Notice</li>
         </ol>
 
        
@@ -136,48 +138,53 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            All Tenants</div>
+            All Notices</div>
           <div class="card-body">
             <div class="table-responsive">
             
 
-              <?php 
-$username = "root"; 
-$password = ""; 
-$database = "hostel"; 
-$mysqli = new mysqli("localhost", $username, $password, $database); 
-$query = "SELECT * FROM users";
- 
- 
-echo '<table border="0" class="table" cellspacing="2" cellpadding="2"> 
-      <tr> <td> <font face="Arial">Serial Number</font> </td>
-      <td> <font face="Arial">Full Name</font> </td>
-          <td> <font face="Arial">Phone Number</font> </td> 
-          <td> <font face="Arial">Email Address</font> </td>
-          <td> <font face="Arial">ID Number</font> </td>  
-      </tr>';
- 
-if ($result = $mysqli->query($query)) {
-    while ($row = $result->fetch_assoc()) {
-        $field1name = $row["id"];
-        $field2name = $row["name"];
-        $field3name = $row["phone_no"];
-        $field4name = $row["email"];
-        $field5name = $row["id_no"];
-      
- 
-        echo '<tr> 
-                  <td>'.$field1name.'</td> 
-                  <td>'.$field2name.'</td> 
-                  <td>'.$field3name.'</td> 
-                  <td>'.$field4name.'</td> 
-                  <td>'.$field5name.'</td> 
-                   
-              </tr>';
+              <?php
+
+    $output = '';
+    // $txtEvolucion = $_POST["txtEvolucion"];
+        require_once('DatabaseConfig.php');
+        $con = mysqli_connect($HostName,$HostUser,$HostPass,$DatabaseName);
+    $query = mysqli_query($con,"SELECT  clmSerie
+                                         ,clmTextArea
+                                 FROM     notice
+                                  "
+          ) or die('Error to select!: {' . mysqli_error($con) . '}');
+
+    $count = mysqli_num_rows($query);
+
+    $output .= '<table border="" class="table" align="left" cellspacing="0" cellpadding="0">
+                   <tr>
+                  
+                       <td align="center"><b>Serial Number </b></td>
+                       <td align="center"><b>Notice</b></td>
+                   </tr>';
+    while($row = mysqli_fetch_array($query))
+    {
+        $serie       = $row['clmSerie'];
+        $descripcion = utf8_encode($row['clmTextArea']);
+        //$descripcion = nl2br($descripcion);
+
+        $output .= '<tr>
+
+        
+                        <td align="left">' .$serie         . '</td>
+                        <td align="left"><input hidden readonly id="serie" name="serie" type="text"
+                                                value="'. $serie . '" 
+                                         >
+                                         <textarea id="descripcion" name="descripcion" cols="132" rows="6"
+                                                   value = "'.$descripcion.'" 
+                                                   readonly>'. $descripcion .'</textarea>
+                        </td>
+                                         </form>';
+        $output .= '</tr>';
     }
-    $result->free();
-} 
 ?>
+        <?php echo $output;?>
     
             </div>
           </div>
@@ -243,3 +250,4 @@ if ($result = $mysqli->query($query)) {
 </body>
 
 </html>
+
