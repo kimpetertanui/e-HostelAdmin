@@ -1,3 +1,8 @@
+<?php
+session_start(); 
+// echo "All hostels are Here";
+
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +31,7 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.php">e-Hostel Management System</a>
+    <a class="navbar-brand mr-1" href="index.html">e-Hostel Management System</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -90,7 +95,7 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="home.php">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -102,8 +107,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
-          <a class="dropdown-item" href="add_hostel.html">Add Hostel</a>
-          <a class="dropdown-item" href="home.php">View Hostels </a>
+          <a class="dropdown-item" href="add_hostel.html"><i class="fas fa-plus"></i>Add Hostel
+           
+          </a>
+          <a class="dropdown-item" href="home.php"><i class="fas fa-eye"></i>View Hostels </a>
           
         </div>
       </li>
@@ -123,76 +130,96 @@
 
       <div class="container-fluid">
 
-        <!-- Breadcrumbs--> <ol class="breadcrumb">   <li class="breadcrumb-
-        item">     <a href="home.php">Dashboard</a>   </li>   <li class="breadcrumb-
-        item active">Add Hostel</li> </ol>
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Hostels</li>
+        </ol>
 
        
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            All Hostels</div>
+          <div class="card-body">
+            <div class="table-responsive">
+            
+
+              <?php 
+             
+$username = "root"; 
+$password = ""; 
+$database = "hostel"; 
+$mysqli = new mysqli("localhost", $username, $password, $database); 
+$query = "SELECT * FROM hostel";
+echo '<script type="text/javascript">
+
+function handleClick(evt) {
+  var node = evt.target || evt.srcElement;
+  if (node.name == "edit") {
+    node.value = "Modify";
+  }
+}
+
+</script>';
+ 
+ 
+echo '<table id="table1" border="1" onclick="handleClick(event); border="0" class="table" cellspacing="2" cellpadding="2"> 
+      <tr> 
+      <th> <font face="Arial">Serial Number</font> </th>
+      <th> <font face="Arial">Hostel Name</font> </th>
+          <th> <font face="Arial">Hostel Capacity</font> </th> 
+          <th> <font face="Arial">Location Address</font> </th>
+          <th colspan="0"><font face="Arial">Action<th/>
+         
+      </tr>';
+ 
+if ($result = $mysqli->query($query)) {
+    while ($row = $result->fetch_assoc()) {
+        $field1name = $row["id"];
+        $field2name = $row["name"];
+        $field3name = $row["capacity"];
+        $field4name = $row["location"];
       
-<!--start of form-->
-<hr>
-<div class="container pt-1">
-<form action="add_hostel.php" method="POST">
-<div class="row">
-  <div class="col-md-6">
-  <div class="form-group">
-    <label for="id">Hostel ID</label>
-    <input type="text" name="id" class="form-control" id="id" aria-describedby="id" placeholder="Enter Hostel Number">
-  </div>
-  <div class="form-group">
-    <label for="name">Hostel Name</label>
-    <input type="text" name="name" class="form-control" id="name" aria-describedby="name" placeholder="Enter Hostel Name">
-  </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-    <label for="capacity"">Hostel Capacity</label>
-    <input type="text" name="capacity" class="form-control" id="capacity"" aria-describedby="capacity"" placeholder="Enter Capacity">
-  </div>
-  <div class="form-group">
-    <label for="location">Hostel Location</label>
-    <input type="text" name="location" class="form-control" id="location" aria-describedby="location" placeholder="Enter the Location">
-  </div>
-  </div>
-   <!-- <div class="col-md-6">
-  <div class="form-group">
-    <label for="company_regno">Bid Amount</label>
-    <input type="text" name="company_regno" class="form-control" id="company_regno" aria-describedby="company_regno" placeholder="Enter the Company Registration Number">
-  </div> -->
+ 
+        echo '<tr> 
+                  <td>'.$field1name.'</td> 
+                  <td>'.$field2name.'</td> 
+                  <td>'.$field3name.'</td> 
+                  <td>'.$field4name.'</td>
+                  <td colspan="1"> <form name="f1" action="view_rooms.php" >
+                <input id="edit1" type="submit" name="edit" value="View Rooms">
+               </form></td>
+               
+                   
+              </tr>';
+               $_SESSION['id'] = $field1name;
+    }
+   
+   
+    //echo $field1name;
+    $result->free();
+} 
+?>
     
-  </div>
-  <!--   <div class="col-md-6">
-
-      <div class="form-group">
-    <label for="postal_address">Department</label>
-    <input type="text" name="postal_address" class="form-control" id="postal_address" aria-describedby="postal_address" placeholder="Enter Your Postal Addres">
-  </div>
-
-  </div> -->
-
-</div>
-  <hr>
-  <div class="row">
-    <div class="col text-center">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-</div>
-  <!--end of form-->
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright ©  e-Hostel 2019</span>
+            </div>
           </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-      </footer>
+
+      </div>
+      <!-- /.container-fluid -->
+
+     
 
     </div>
     <!-- /.content-wrapper -->
 
   </div>
+
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -218,6 +245,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

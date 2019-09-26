@@ -14,7 +14,7 @@ $Sql_Query = "INSERT INTO hostel (id,name,capacity,location) values ('$id','$nam
  if(mysqli_query($con,$Sql_Query))
 {
  echo 'Hostel Registered Successfully';
- header('Location: http://127.0.0.1/HostelYangu/admin/add_hostel.html');
+ header('Location: http://127.0.0.1/HostelYangu/admin/index.php');
 exit;
 }
 else

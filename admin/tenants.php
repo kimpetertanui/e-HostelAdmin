@@ -26,7 +26,7 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.php">e-Hostel Management System</a>
+    <a class="navbar-brand mr-1" href="index.html">e-Hostel Management System</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -123,76 +123,77 @@
 
       <div class="container-fluid">
 
-        <!-- Breadcrumbs--> <ol class="breadcrumb">   <li class="breadcrumb-
-        item">     <a href="home.php">Dashboard</a>   </li>   <li class="breadcrumb-
-        item active">Add Hostel</li> </ol>
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="home.php">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Tenants</li>
+        </ol>
 
        
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            All Tenants</div>
+          <div class="card-body">
+            <div class="table-responsive">
+            
+
+              <?php 
+$username = "root"; 
+$password = ""; 
+$database = "hostel"; 
+$mysqli = new mysqli("localhost", $username, $password, $database); 
+$query = "SELECT * FROM users";
+ 
+ 
+echo '<table border="0" class="table" cellspacing="2" cellpadding="2"> 
+      <tr> <td> <font face="Arial">Serial Number</font> </td>
+      <td> <font face="Arial">Full Name</font> </td>
+          <td> <font face="Arial">Phone Number</font> </td> 
+          <td> <font face="Arial">Email Address</font> </td>
+          <td> <font face="Arial">ID Number</font> </td>  
+      </tr>';
+ 
+if ($result = $mysqli->query($query)) {
+    while ($row = $result->fetch_assoc()) {
+        $field1name = $row["id"];
+        $field2name = $row["name"];
+        $field3name = $row["phone_no"];
+        $field4name = $row["email"];
+        $field5name = $row["id_no"];
       
-<!--start of form-->
-<hr>
-<div class="container pt-1">
-<form action="add_hostel.php" method="POST">
-<div class="row">
-  <div class="col-md-6">
-  <div class="form-group">
-    <label for="id">Hostel ID</label>
-    <input type="text" name="id" class="form-control" id="id" aria-describedby="id" placeholder="Enter Hostel Number">
-  </div>
-  <div class="form-group">
-    <label for="name">Hostel Name</label>
-    <input type="text" name="name" class="form-control" id="name" aria-describedby="name" placeholder="Enter Hostel Name">
-  </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-    <label for="capacity"">Hostel Capacity</label>
-    <input type="text" name="capacity" class="form-control" id="capacity"" aria-describedby="capacity"" placeholder="Enter Capacity">
-  </div>
-  <div class="form-group">
-    <label for="location">Hostel Location</label>
-    <input type="text" name="location" class="form-control" id="location" aria-describedby="location" placeholder="Enter the Location">
-  </div>
-  </div>
-   <!-- <div class="col-md-6">
-  <div class="form-group">
-    <label for="company_regno">Bid Amount</label>
-    <input type="text" name="company_regno" class="form-control" id="company_regno" aria-describedby="company_regno" placeholder="Enter the Company Registration Number">
-  </div> -->
+ 
+        echo '<tr> 
+                  <td>'.$field1name.'</td> 
+                  <td>'.$field2name.'</td> 
+                  <td>'.$field3name.'</td> 
+                  <td>'.$field4name.'</td> 
+                  <td>'.$field5name.'</td> 
+                   
+              </tr>';
+    }
+    $result->free();
+} 
+?>
     
-  </div>
-  <!--   <div class="col-md-6">
-
-      <div class="form-group">
-    <label for="postal_address">Department</label>
-    <input type="text" name="postal_address" class="form-control" id="postal_address" aria-describedby="postal_address" placeholder="Enter Your Postal Addres">
-  </div>
-
-  </div> -->
-
-</div>
-  <hr>
-  <div class="row">
-    <div class="col text-center">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-</div>
-  <!--end of form-->
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright ©  e-Hostel 2019</span>
+            </div>
           </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-      </footer>
+
+      </div>
+      <!-- /.container-fluid -->
+
+     
 
     </div>
     <!-- /.content-wrapper -->
 
   </div>
+
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -218,6 +219,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
