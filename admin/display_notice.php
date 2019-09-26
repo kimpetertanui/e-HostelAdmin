@@ -31,7 +31,7 @@
                         <td align="left"><input hidden readonly id="serie" name="serie" type="text"
                                                 value="'. $serie . '" 
                                          >
-                                         <textarea id="descripcion" name="descripcion" cols="132" rows="6"
+                                         <textarea id="descripcion" name="descripcion" cols="40" rows="6"
                                                    value = "'.$descripcion.'" 
                                                    readonly>'. $descripcion .'</textarea>
                         </td>
@@ -42,7 +42,7 @@
        <!DOCTYPE html>
        <html>
        <head>
-         <title></title>
+         <title>Notice</title>
        </head>
        <body>
         <?php echo $output;?>
