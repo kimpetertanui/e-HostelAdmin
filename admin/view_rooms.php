@@ -10,15 +10,14 @@ if ($conn->connect_error) {
  die("Connection failed: " . $conn->connect_error);
 } 
 
-if(isset($_SESSION['id'])) {
-    $field1name= $_SESSION['id'];
-} else {
-    die('$'."_SESSION['id'] isn't set because you had never been at file one");
-}
-echo $field1name;
+       if (isset($_POST['delete'])) {
+           $id=$_POST['id'];
+ $_SESSION['id']=$id;
+ echo $id;
+       }
 
 
-$sql = "SELECT * FROM rooms WHERE hostel_id='3052'";
+$sql = "SELECT * FROM rooms WHERE hostel_id=$id";
 
 $result = $conn->query($sql);
 

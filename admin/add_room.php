@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-// echo "All hostels are Here";
+// echo "All rooms are Here";
 
   ?>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ session_start();
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>e-Hostel Admin - Dashboard</title>
+  <title>e-Hostel : : View Rooms</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@ session_start();
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">e-Hostel Management System</a>
+    <a class="navbar-brand mr-1" href="index.php">e-Hostel Management System</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -95,7 +95,7 @@ session_start();
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="home.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -107,10 +107,8 @@ session_start();
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
-          <a class="dropdown-item" href="add_hostel.html"><i class="fas fa-plus"></i>Add Hostel
-           
-          </a>
-          <a class="dropdown-item" href="home.php"><i class="fas fa-eye"></i>View Hostels </a>
+          <a class="dropdown-item" href="add_hostel.html">Add Hostel</a>
+          <a class="dropdown-item" href="home.php">View Hostels </a>
           
         </div>
       </li>
@@ -119,7 +117,7 @@ session_start();
           <i class="fa fa-user" aria-hidden="true"></i>
           <span>Tenants</span></a>
       </li>
-      <li class="nav-item">
+     <li class="nav-item">
         <a class="nav-link" href="notice.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Notice</span></a>
@@ -135,97 +133,81 @@ session_start();
 
       <div class="container-fluid">
 
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Hostels</li>
-        </ol>
+        <!-- Breadcrumbs--> <ol class="breadcrumb">   <li class="breadcrumb-
+        item">     <a href="home.php">Dashboard</a>   </li>   <li class="breadcrumb-
+        item active">/Add Room</li> </ol>
 
        
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            All Hostels</div>
-          <div class="card-body">
-            <div class="table-responsive">
-            
-
-              <?php 
-             
-$username = "root"; 
-$password = ""; 
-$database = "hostel"; 
-$mysqli = new mysqli("localhost", $username, $password, $database); 
-$query = "SELECT * FROM hostel";
-echo '<script type="text/javascript">
-
-function handleClick(evt) {
-  var node = evt.target || evt.srcElement;
-  if (node.name == "edit") {
-    node.value = "Modify";
-  }
-}
-
-</script>';
- 
- 
-echo '<table id="table1" border="1" onclick="handleClick(event); border="0" class="table" cellspacing="2" cellpadding="2"> 
-      <tr> 
-      <th> <font face="Arial">Serial Number</font> </th>
-      <th> <font face="Arial">Hostel Name</font> </th>
-          <th> <font face="Arial">Hostel Capacity</font> </th> 
-          <th> <font face="Arial">Location Address</font> </th>
-          <th colspan="2"><font face="Arial">Action<th/>
-         
-      </tr>';
- 
-if ($result = $mysqli->query($query)) {
-    while ($row = $result->fetch_assoc()) {
-        $field1name = $row["id"];
-        $field2name = $row["name"];
-        $field3name = $row["capacity"];
-        $field4name = $row["location"];
       
- 
-        echo '<tr> 
-                  <td>'.$field1name.'</td> 
-                  <td>'.$field2name.'</td> 
-                  <td>'.$field3name.'</td> 
-                  <td>'.$field4name.'</td>
-          
-                  <td colspan="1"> <form action="rooms.php" method="POST"><input type="hidden" name="id" value='.$row["id"].'><input type="submit" name="delete" value="View Rooms" id='. $row['id'] .'></form></td>
-                   <td colspan="1"> <form action="add_room.php" method="POST"><input type="hidden" name="id" value='.$row["id"].'><input type="submit" name="add_room" value="Add Room" id='. $row['id'] .'></form></td>
-               
-                   
-              </tr>';
-       
-               
-    }
-   
-   
+<!--start of form-->
+<hr>
+<div class="container pt-1">
+<form action="insert_room.php" method="POST">
+<div class="row">
+  <div class="col-md-6">
+  <div class="form-group">
+    <label for="room_no">Room ID</label>
+    <input type="text" name="room_no" class="form-control" id="room_no" aria-describedby="room_no" placeholder="Enter Room ID ">
+  </div>
+  <div class="form-group">
+    <label for="room_name">Room Name</label>
+    <input type="text" name="room_name" class="form-control" id="room_name" aria-describedby="room_name" placeholder="Enter Room Name">
+  </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+    <label for="room_details">Room Details</label>
+    <input type="text" name="room_details" class="form-control" id="room_details"" aria-describedby="room_details"" placeholder="Enter Room Details">
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="text" name="price" class="form-control" id="price" aria-describedby="price" placeholder="Enter the Price">
+  </div>
+  </div>
+   <div class="col-md-6">
+  <div class="form-group">
+    <label for="status">Room Status</label>
+    <input type="text" name="status" class="form-control" id="status" aria-describedby="status" placeholder="Enter the Status e.g vaccant or occupied">
+  </div>
     
-    $result->free();
-} 
-?>
-    
-            </div>
+  </div>
+    <div class="col-md-6">
+
+      <div class="form-group">
+    <label for="hostel_id">Hostel Serial Number</label>
+    <input type="text" name="hostel_id" value="<?php if (isset($_POST['add_room'])) {
+           $id=$_POST['id'];
+ $_SESSION['id']=$id;
+ echo $id;
+       } ?>" class="form-control" id="hostel_id" aria-describedby="hostel_id" placeholder="Hostel Serial Number" readonly >
+
+  </div>
+
+  </div>
+
+</div>
+  <hr>
+  <div class="row">
+    <div class="col text-center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
+</div>
+  <!--end of form-->
+      <!-- Sticky Footer -->
+      <!-- <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright ©  e-Hostel 2019</span>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-
-      </div>
-      <!-- /.container-fluid -->
-
-     
+      </footer> -->
 
     </div>
     <!-- /.content-wrapper -->
 
   </div>
-
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -251,7 +233,6 @@ if ($result = $mysqli->query($query)) {
       </div>
     </div>
   </div>
-
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

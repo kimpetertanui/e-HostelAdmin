@@ -140,7 +140,7 @@ session_start();
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Hostels</li>
+          <li class="breadcrumb-item active">Rooms</li>
         </ol>
 
        
@@ -148,7 +148,7 @@ session_start();
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            All Hostels</div>
+            All Rooms</div>
           <div class="card-body">
             <div class="table-responsive">
             
@@ -159,7 +159,14 @@ $username = "root";
 $password = ""; 
 $database = "hostel"; 
 $mysqli = new mysqli("localhost", $username, $password, $database); 
-$query = "SELECT * FROM hostel";
+ if (isset($_POST['delete'])) {
+           $id=$_POST['id'];
+ $_SESSION['id']=$id;
+ // echo $id;
+       }
+
+
+$query = "SELECT * FROM rooms WHERE hostel_id=$id";
 echo '<script type="text/javascript">
 
 function handleClick(evt) {
@@ -175,19 +182,20 @@ function handleClick(evt) {
 echo '<table id="table1" border="1" onclick="handleClick(event); border="0" class="table" cellspacing="2" cellpadding="2"> 
       <tr> 
       <th> <font face="Arial">Serial Number</font> </th>
-      <th> <font face="Arial">Hostel Name</font> </th>
-          <th> <font face="Arial">Hostel Capacity</font> </th> 
-          <th> <font face="Arial">Location Address</font> </th>
-          <th colspan="2"><font face="Arial">Action<th/>
+      <th> <font face="Arial">Room Name</font> </th>
+          <th> <font face="Arial">Room Description</font> </th> 
+          <th> <font face="Arial">Price</font> </th>
+          <th><font face="Arial">Status<th/>
          
       </tr>';
  
 if ($result = $mysqli->query($query)) {
     while ($row = $result->fetch_assoc()) {
-        $field1name = $row["id"];
-        $field2name = $row["name"];
-        $field3name = $row["capacity"];
-        $field4name = $row["location"];
+        $field1name = $row["room_no"];
+        $field2name = $row["room_name"];
+        $field3name = $row["room_details"];
+        $field4name = $row["price"];
+        $field5name = $row["status"];
       
  
         echo '<tr> 
@@ -195,9 +203,7 @@ if ($result = $mysqli->query($query)) {
                   <td>'.$field2name.'</td> 
                   <td>'.$field3name.'</td> 
                   <td>'.$field4name.'</td>
-          
-                  <td colspan="1"> <form action="rooms.php" method="POST"><input type="hidden" name="id" value='.$row["id"].'><input type="submit" name="delete" value="View Rooms" id='. $row['id'] .'></form></td>
-                   <td colspan="1"> <form action="add_room.php" method="POST"><input type="hidden" name="id" value='.$row["id"].'><input type="submit" name="add_room" value="Add Room" id='. $row['id'] .'></form></td>
+                  <td>'.$field5name.'</td>
                
                    
               </tr>';
