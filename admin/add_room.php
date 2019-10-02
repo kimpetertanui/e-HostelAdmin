@@ -147,27 +147,27 @@ session_start();
   <div class="col-md-6">
   <div class="form-group">
     <label for="room_no">Room ID</label>
-    <input type="text" name="room_no" class="form-control" id="room_no" aria-describedby="room_no" placeholder="Enter Room ID ">
+    <input type="text" name="room_no" class="form-control" id="room_no" aria-describedby="room_no" placeholder="Enter Room ID " required>
   </div>
   <div class="form-group">
     <label for="room_name">Room Name</label>
-    <input type="text" name="room_name" class="form-control" id="room_name" aria-describedby="room_name" placeholder="Enter Room Name">
+    <input type="text" name="room_name" class="form-control" id="room_name" aria-describedby="room_name" placeholder="Enter Room Name" required>
   </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
     <label for="room_details">Room Details</label>
-    <input type="text" name="room_details" class="form-control" id="room_details"" aria-describedby="room_details"" placeholder="Enter Room Details">
+    <input type="text" name="room_details" class="form-control" id="room_details"" aria-describedby="room_details"" placeholder="Enter Room Details" required>
   </div>
   <div class="form-group">
     <label for="price">Price</label>
-    <input type="text" name="price" class="form-control" id="price" aria-describedby="price" placeholder="Enter the Price">
+    <input type="text" name="price" class="form-control" id="price" aria-describedby="price" placeholder="Enter the Price" required>
   </div>
   </div>
    <div class="col-md-6">
   <div class="form-group">
     <label for="status">Room Status</label>
-    <input type="text" name="status" class="form-control" id="status" aria-describedby="status" placeholder="Enter the Status e.g vaccant or occupied">
+    <input type="text" name="status" class="form-control" id="status" aria-describedby="status" placeholder="Enter the Status e.g vaccant or occupied" required>
   </div>
     
   </div>
